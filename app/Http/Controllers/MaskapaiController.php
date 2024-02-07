@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\flight;
 use App\Models\Airline;
-// use Illuminate\Support\Facades\Auth;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\Auth;
 class MaskapaiController extends Controller
 {
     /**
@@ -85,5 +86,39 @@ class MaskapaiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    // public function searchLaporan(Request $request)
+    // {
+    //     // Retrieve the departure city from the request
+    //     $departureCity = $request->input('departure_city');
+
+    //     // Query transactions where departure city matches or airline name matches
+    //     $transactions = Flight::where('departure_city', 'like', '%' . $departureCity . '%')
+    //         ->orWhereHas('airline', function ($query) use ($departureCity) {
+    //             $query->where('name', 'like', '%' . $departureCity . '%');
+    //         })->get();
+
+    //     // Pass the results to the view
+    //     return view('maskapai.laporan.berhasil', compact('transactions'));
+    // }
+
+    public function searchLaporan(Request $request)
+    {
+        $airlineName = Auth::user()->name; // Adjust this based on your actual authentication setup
+
+        $departureCity = $request->input('departure_city');
+
+        $transactions = Transaction::where('payment_status', 'Berhasil')
+            ->whereHas('flight', function ($query) use ($departureCity, $airlineName) {
+                $query->where('departure_city', 'like', '%' . $departureCity . '%')
+                    ->whereHas('airline', function ($query) use ($airlineName) {
+                        $query->where('name', $airlineName);
+                    });
+            })->get();
+
+        $totalIncome = $transactions->sum('total_price');
+
+        return view('maskapai.laporan.berhasil', compact('transactions', 'totalIncome'));
     }
 }

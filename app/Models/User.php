@@ -44,29 +44,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // public function getDashboardRoute()
-    // {
-    //     $user = auth()->user();
 
-    //     if ($user) {
-    //         switch ($user->role) {
-    //             case 'admin':
-    //                 return route('admin.dashboard');
-    //             case 'maskapai':
-    //                 return route('maskapai.dashboard');
-    //                 // Add more cases for other roles if needed
-    //             default:
-    //                 return route('user.dashboard');
-    //         }
-    //     }
-
-    //     // Default to the user dashboard if no role is found
-    //     return route('user.dashboard');
-    // }
 
     public function airline()
     {
-        return $this->hasOne(Airline::class);
+        return $this->belongsTo(Airline::class);
     }
 
     public function transaction()

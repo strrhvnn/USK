@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\transaction;
+use App\Models\Airline;
 use App\Models\Flight;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class TransactionController extends Controller
         $transaction = new Transaction;
         $transaction->flight_id = $request->input('flight_id');
         $transaction->customer_id = $request->input('customer_id');
+        $transaction->airline_id = $request->input('airline_id');
 
 
         // Membuat no_booking dengan komponen yang diinginkan

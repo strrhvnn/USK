@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('flight_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('airline_id');
             $table->string('no_booking');
             $table->integer('total_price');
             $table->integer('total_seat');
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('flight_id')->references('id')->on('flights')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('airline_id')->references('id')->on('airlines')->onDelete('cascade');
         });
     }
 

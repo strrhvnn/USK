@@ -29,10 +29,13 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Customer</th>
+                                    <th>Nama Maskapai</th>
                                     <th>No Flight</th>
                                     <th>Total Price</th>
-                                    <th>Total Seat</th>
                                     <th>No Booking</th>
+                                    <th>Departure City</th>
+                                    <th>Arrival City</th>
+                                    <th>Total Seat</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -44,10 +47,13 @@
 
                                         @if ($transaction->customer)
                                             <th>{{ $transaction->customer->name }}</th>
+                                            <th>{{ $transaction->flight->airline->name }}</th>
                                             <td>{{ $transaction->flight->no_flight }}</td>
                                             <td>{{ $transaction->total_price }}</td>
-                                            <td>{{ $transaction->total_seat }}</td>
                                             <td>{{ $transaction->no_booking }}</td>
+                                            <td>{{ $transaction->flight->departure_city }}</td>
+                                            <td>{{ $transaction->flight->arrival_city }}</td>
+                                            <td>{{ $transaction->total_seat }}</td>
                                             <td>{{ $transaction->payment_status }}</td>
                                         @else
                                             <td colspan="7">You don't have a valid ticket</td>

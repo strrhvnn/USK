@@ -69,6 +69,8 @@ Route::middleware('role:maskapai')->group(function () {
     Route::get('maskapai.laporan.berhasil', [AdminController::class, 'laporanBerhasil'])->name('maskapai.laporan.berhasil');
     Route::post('maskapai.confirmPayment/{id}', [AdminController::class, 'confirmPayment'])->name('maskapai.confirmPayment');
 
+    Route::get('user.searchLaporan', [MaskapaiController::class, 'searchLaporan'])->name('maskapai.searchLaporan');
+
 });
 
 Route::middleware('role:user')->group(function () {

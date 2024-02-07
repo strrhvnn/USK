@@ -41,6 +41,7 @@
             <div class="form-control mt-3 flex flex-col">
                 <input type="hidden" class="input input-bordered w-full max-w-xs" name="payment_status" id="payment_status" value="Pending">
                 <input type="hidden" class="input input-bordered w-full max-w-xs" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" class="input input-bordered w-full max-w-xs" name="airline_id" id="airline_id" value="{{ $flight->airline->id }}">
             </div>
             <div class="form-control mt-3">
                 <button type="submit" class="btn btn-warning w-full max-w-xs">

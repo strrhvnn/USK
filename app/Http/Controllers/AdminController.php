@@ -80,13 +80,35 @@ class AdminController extends Controller
 
     public function laporan()
     {
-        $transactions = transaction::all();
-        return view('maskapai.laporan.pending', compact('transactions'));
+        $user = auth()->user();
+
+        if ($user) {
+            // Mengambil semua transaksi yang terkait dengan airline_id yang memiliki nama sesuai dengan pengguna yang login
+            $transactions = Transaction::whereHas('flight.airline', function ($query) use ($user) {
+                $query->where('name', $user->name);
+            })->get();
+        } else {
+            // Jika pengguna tidak login, atasi dengan memberikan nilai koleksi kosong
+            $transactions = collect();
+        }
+
+        return view('maskapai.laporan.pending', compact('transactions', 'user'));
     }
 
     public function laporanBerhasil(){
-        $transactions = transaction::all();
-        return view('maskapai.laporan.berhasil', compact('transactions'));
+        $user = auth()->user();
+
+        if ($user) {
+            // Mengambil semua transaksi yang terkait dengan airline_id yang memiliki nama sesuai dengan pengguna yang login
+            $transactions = Transaction::whereHas('flight.airline', function ($query) use ($user) {
+                $query->where('name', $user->name);
+            })->get();
+        } else {
+            // Jika pengguna tidak login, atasi dengan memberikan nilai koleksi kosong
+            $transactions = collect();
+        }
+
+        return view('maskapai.laporan.berhasil', compact('transactions', 'user'));
     }
 
     public function confirmPayment($id)
